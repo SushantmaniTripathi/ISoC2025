@@ -48,7 +48,7 @@ const Points = () => {
         const validPoints = isNaN(parsedPoints) ? 0 : parsedPoints;
 
         try {
-            await axios.post(`https://api.ieeesoc.xyz/api/users/points/assign`, {
+            await axios.post(`https://isoc-backend-e2s8.onrender.com/api/users/points/assign`, {
                 prId: updated[indexToUpdate].prId,
                 username: updated[indexToUpdate].username,
                 prTitle: updated[indexToUpdate].prTitle,

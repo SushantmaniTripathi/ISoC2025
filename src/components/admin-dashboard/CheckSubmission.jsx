@@ -18,7 +18,7 @@ const CheckSubmission = () => {
 
         setLoading(status, true);
         try {
-            const res = await fetch(`https://api.ieeesoc.xyz/api/admin-dashboard?sort=${sortOrder}`, {
+            const res = await fetch(`https://isoc-backend-e2s8.onrender.com/api/admin-dashboard?sort=${sortOrder}`, {
                 credentials: "include",
             });
             const data = await res.json();

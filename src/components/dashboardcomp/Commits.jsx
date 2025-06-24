@@ -15,7 +15,7 @@ const Commits = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const res = await axios.get(`https://api.ieeesoc.xyz/api/dashboard/${user._id}/dashboard`, {
+        const res = await axios.get(`https://isoc-backend-e2s8.onrender.com/api/dashboard/${user._id}/dashboard`, {
           withCredentials: true,
         });
         setDashboardData(res.data);
