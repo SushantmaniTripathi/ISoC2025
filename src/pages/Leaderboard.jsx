@@ -24,7 +24,7 @@ const Leaderboard = () => {
     const fetchData = async () => {
         try {
             setLoading(true);
-            const res = await fetch('https://api.ieeesoc.xyz/api/users/allUserdata');
+            const res = await fetch('https://isoc-backend-e2s8.onrender.com/api/users/allUserdata');
             const data = await res.json();
 
             if (!data.success) {

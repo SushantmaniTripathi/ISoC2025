@@ -24,7 +24,7 @@ const RepoPreview = () => {
 
   const fetchRepo = async () => {
     try {
-      const res = await axios.get(`https://api.ieeesoc.xyz/api/repos/${id}`);
+      const res = await axios.get(`https://isoc-backend-e2s8.onrender.com/api/repos/${id}`);
       setRepo(res.data);
     } catch (err) {
       console.error("Error fetching repo:", err);
@@ -40,7 +40,7 @@ const RepoPreview = () => {
     } else {
       try {
         const res = await axios.post(
-          `https://api.ieeesoc.xyz/api/users/${user._id}/contribute`,
+          `https://isoc-backend-e2s8.onrender.com/api/users/${user._id}/contribute`,
           { repoId: repo._id },
           { withCredentials: true }
         );

@@ -36,7 +36,7 @@ const ReposPage = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          "https://api.ieeesoc.xyz/api/repos"
+          "https://isoc-backend-e2s8.onrender.com/api/repos"
         );
         const data = await response.json();
         console.log(data);
