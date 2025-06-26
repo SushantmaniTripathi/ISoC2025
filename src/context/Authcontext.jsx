@@ -1,3 +1,5 @@
+
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -12,12 +14,21 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchStatus = async () => {
+  const fetchStatus = async (retryCount = 0) => {
     try {
-      const res = await axios.get("/api/auth/status");
-
+      console.log("Fetching auth status...", { retryCount });
+      
+      const res = await axios.get("/api/auth/status", {
+        timeout: 10000, // 10 second timeout
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      });
+      
+      console.log("Auth status response:", res.data);
+      
       const newUser = res.data.loggedIn ? res.data.user : null;
-
       const alreadyWelcomed = sessionStorage.getItem("hasWelcomed");
 
       if (!user && newUser && !alreadyWelcomed) {
@@ -28,9 +39,19 @@ export const AuthProvider = ({ children }) => {
       setUser(newUser);
     } catch (err) {
       console.error("Error fetching auth status", err);
+      
+      // Retry once after redirect from GitHub (common issue)
+      if (retryCount === 0 && window.location.pathname === '/dashboard') {
+        console.log("Retrying auth status check...");
+        setTimeout(() => fetchStatus(1), 1000);
+        return;
+      }
+      
       setUser(null);
     } finally {
-      setLoading(false);
+      if (retryCount > 0 || !window.location.pathname.includes('dashboard')) {
+        setLoading(false);
+      }
     }
   };
 
